@@ -1,21 +1,15 @@
-import express from 'express';
 import fetch from 'node-fetch';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import express from 'express';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 const clientId = process.env.CLIENT_ID; 
 const clientSecret = process.env.CLIENT_SECRET; 
+
 async function getAccessToken(clientId, clientSecret) {
     const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
@@ -53,7 +47,7 @@ async function getTrackDetails(accessToken, trackId) {
     return { trackName, artistName };
 }
 
-app.post('/get-track-details', async (req, res) => {
+app.post('/api/get-track-details', async (req, res) => {
     const { spotifyUrl } = req.body;
 
     try {
@@ -66,6 +60,4 @@ app.post('/get-track-details', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+export default app;

@@ -1,7 +1,7 @@
 async function fetchTrackDetails() {
     const spotifyUrl = document.getElementById('spotifyUrl').value;
 
-    const response = await fetch('/get-track-details', {
+    const response = await fetch('/api/get-track-details', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
