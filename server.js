@@ -2,7 +2,9 @@ import express from 'express';
 import fetch from 'node-fetch';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -14,7 +16,6 @@ app.use(express.json());
 
 const clientId = process.env.CLIENT_ID; 
 const clientSecret = process.env.CLIENT_SECRET; 
-
 async function getAccessToken(clientId, clientSecret) {
     const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
